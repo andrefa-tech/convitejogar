@@ -1,260 +1,136 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f6f4e9">
-  <title>Um convite para Maria</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Um convite para Maria 💜</title>
   <style>
-    :root {
-      color-scheme: light;
-      --paper: #f6f4e9;
-      --ink: #173d35;
-      --muted: #64736a;
-      --red: #df563b;
-      --yellow: #f4cb5c;
-      --line: #dedfd1;
-      font-family: "DM Sans", sans-serif;
-      color: var(--ink);
-      background: var(--paper);
-      font-synthesis: none;
-      text-rendering: optimizeLegibility;
-    }
-
+    :root { --pink: #ff7bd5; --white: #fff; }
     * { box-sizing: border-box; }
-
     body {
-      min-width: 320px;
-      min-height: 100vh;
-      margin: 0;
-      display: grid;
-      place-items: center;
-      padding: 32px 20px;
-      background-color: var(--paper);
-      background-image: radial-gradient(#c9d1bd 0.75px, transparent 0.75px);
-      background-size: 19px 19px;
+      margin: 0; min-height: 100vh; display: grid; place-items: center;
+      overflow: hidden; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--white); background: #160626;
     }
-
-    .invitation {
-      width: min(100%, 940px);
-      min-height: 530px;
-      display: grid;
-      grid-template-columns: 0.92fr 1.08fr;
-      overflow: hidden;
-      background: #fffef9;
-      border: 1px solid var(--line);
-      box-shadow: 9px 10px 0 #d9dfcf;
-      animation: arrive 650ms cubic-bezier(.2,.8,.2,1) both;
+    .video-bg {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: -3;
     }
-
-    .photo {
-      min-height: 530px;
-      position: relative;
-      background: #d7ddc9;
+    .overlay {
+      position: fixed; inset: 0; z-index: -2;
+      background: linear-gradient(135deg, rgba(15,5,35,.68), rgba(43,7,79,.60));
     }
-
-    .photo img {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      inset: 0;
-      object-fit: cover;
+    .glow {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background: radial-gradient(circle at 50% 45%, rgba(176,91,255,.18), transparent 55%);
     }
-
-    .photo::after {
-      content: "";
-      position: absolute;
-      inset: 55% 0 0;
-      background: linear-gradient(transparent, rgb(15 35 27 / 55%));
-      pointer-events: none;
+    .card {
+      position: relative; z-index: 1; width: min(92vw, 560px);
+      padding: 38px 28px 34px; text-align: center;
+      border: 1px solid rgba(255,255,255,.25); border-radius: 26px;
+      background: rgba(19,8,39,.76);
+      box-shadow: 0 20px 70px rgba(0,0,0,.45), 0 0 35px rgba(157,78,221,.18);
+      backdrop-filter: blur(10px);
     }
-
-    .photo-note {
-      position: absolute;
-      z-index: 1;
-      left: 25px;
-      bottom: 23px;
-      color: white;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-    }
-
-    .message {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-      padding: clamp(30px, 5vw, 62px);
-    }
-
-    .eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 0 0 24px;
-      color: var(--red);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 24px;
-      height: 2px;
-      background: var(--red);
-    }
-
-    h1 {
-      max-width: 460px;
-      margin: 0;
-      font-family: "DM Serif Display", Georgia, serif;
-      font-size: clamp(42px, 5.3vw, 64px);
-      font-weight: 400;
-      line-height: 0.99;
-    }
-
-    h1 span { color: var(--red); }
-
-    .details {
-      margin: 25px 0 0;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.7;
-    }
-
-    .day {
-      display: inline-block;
-      margin-top: 21px;
-      padding: 8px 12px;
-      background: #f9e9a9;
-      color: #4a482f;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-height: 54px;
-      margin-top: 29px;
-    }
-
-    button {
-      min-height: 48px;
-      padding: 0 23px;
-      border: 0;
-      border-radius: 3px;
-      font: 700 14px "DM Sans", sans-serif;
-      cursor: pointer;
-      touch-action: manipulation;
-    }
-
-    .yes {
-      background: var(--ink);
-      color: white;
-      transition: background 160ms ease, transform 160ms ease;
-    }
-
-    .yes:hover { background: #285d4f; transform: translateY(-2px); }
-    .yes:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
-
-    .no {
-      position: relative;
-      background: #f0eee5;
-      color: #4e5a52;
-      transition: left 120ms ease, top 120ms ease, background 120ms ease;
-    }
-
-    .no:hover { background: #e7e4d8; }
-    .no:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
-
-    .reply {
-      min-height: 24px;
-      margin: 18px 0 0;
-      color: var(--ink);
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 1.5;
-    }
-
-    [hidden] { display: none !important; }
-
-    @keyframes arrive {
-      from { opacity: 0; transform: translateY(14px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 650px) {
-      body { padding: 20px 16px; }
-      .invitation { grid-template-columns: 1fr; min-height: auto; }
-      .photo { min-height: 225px; }
-      .message { padding: 34px 27px 38px; }
-      .eyebrow { margin-bottom: 19px; }
-      h1 { font-size: clamp(43px, 12vw, 58px); }
-      .details { margin-top: 19px; }
-      .day { margin-top: 15px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-    }
+    .eyebrow { margin: 0 0 12px; color: #e8c7ff; font-size: .85rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+    h1 { margin: 0; font-size: clamp(2rem, 7vw, 3.2rem); line-height: 1.08; text-shadow: 0 0 24px rgba(255,123,213,.35); }
+    .message { margin: 18px auto 28px; max-width: 420px; color: #f1e8ff; font-size: clamp(1rem, 3.5vw, 1.15rem); line-height: 1.65; }
+    .name { color: var(--pink); }
+    .buttons { position: relative; display: flex; justify-content: center; align-items: center; gap: 16px; min-height: 58px; margin-top: 8px; }
+    button { border: 0; border-radius: 999px; padding: 14px 26px; min-width: 130px; font-size: 1rem; font-weight: 800; cursor: pointer; transition: transform .16s ease, box-shadow .16s ease; }
+    button:focus-visible { outline: 3px solid white; outline-offset: 4px; }
+    #yes { color: #2a0b3d; background: linear-gradient(135deg, #ffb3e6, #c9a0ff); box-shadow: 0 7px 25px rgba(255,123,213,.3); }
+    #yes:hover { transform: translateY(-3px) scale(1.04); }
+    #no { color: white; background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.32); z-index: 5; }
+    .hint { margin: 22px 0 0; color: #d8c5f0; font-size: .85rem; }
+    .result { display: none; margin-top: 22px; color: #ffd3f0; font-weight: 700; line-height: 1.6; }
+    .hearts { position: fixed; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
+    .heart { position: absolute; bottom: -30px; animation: floatUp 3.8s ease-in forwards; opacity: .95; filter: drop-shadow(0 0 8px rgba(255,123,213,.55)); }
+    @keyframes floatUp { to { transform: translateY(-110vh) rotate(25deg); opacity: 0; } }
+    @media (max-width: 420px) { .card { padding: 32px 18px; } .buttons { gap: 10px; } button { min-width: 112px; padding: 13px 18px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; } }
   </style>
 </head>
 <body>
-  <main class="invitation">
-    <div class="photo">
-      <img src="https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Um jogo de tabuleiro pronto para começar">
-      <span class="photo-note">Uma partida, boas risadas</span>
+  <video class="video-bg" autoplay muted loop playsinline>
+    <source src="fundo.mp4" type="video/mp4">
+    Seu navegador não suporta vídeo em segundo plano.
+  </video>
+  <div class="overlay"></div>
+  <div class="glow"></div>
+  <main class="card">
+    <p class="eyebrow">Convite oficial ✦</p>
+    <h1>Maria, bora jogar<br><span class="name">quarta-feira?</span></h1>
+    <p class="message">
+      Tenho uma proposta muito importante pra você… 💜<br>
+      Uma partidinha comigo na quarta-feira. Topa?
+    </p>
+    <div class="buttons" id="buttons">
+      <button id="yes" type="button">SIM! 💜</button>
+      <button id="no" type="button">Não 😶</button>
     </div>
-    <section class="message" aria-labelledby="title">
-      <p class="eyebrow">Tenho um convite</p>
-      <h1 id="title">Maria, bora jogar <span>comigo?</span></h1>
-      <p class="details">Quero passar um tempo com você<br>e jogar alguma coisa juntos.</p>
-      <span class="day">Quarta-feira</span>
-      <div class="actions" id="actions">
-        <button class="yes" id="yes" type="button">Sim, vamos!</button>
-        <button class="no" id="no" type="button">Não</button>
-      </div>
-      <p class="reply" id="reply" role="status" aria-live="polite"></p>
-    </section>
+    <p class="hint" id="hint">Escolha com carinho… 👀</p>
+    <p class="result" id="result">EU SABIA! 💜🎮<br>Quarta-feira temos um encontro marcado no jogo. 😎</p>
   </main>
-
+  <div class="hearts" id="hearts"></div>
   <script>
-    const yesButton = document.querySelector("#yes");
-    const noButton = document.querySelector("#no");
-    const actions = document.querySelector("#actions");
-    const reply = document.querySelector("#reply");
+    const noButton = document.getElementById("no");
+    const yesButton = document.getElementById("yes");
+    const hint = document.getElementById("hint");
+    const result = document.getElementById("result");
+    let escapes = 0;
 
-    function dodgeNoButton() {
-      const margin = 12;
-      const maxLeft = Math.max(margin, window.innerWidth - noButton.offsetWidth - margin);
-      const maxTop = Math.max(margin, window.innerHeight - noButton.offsetHeight - margin);
-      const left = margin + Math.random() * Math.max(0, maxLeft - margin);
-      const top = margin + Math.random() * Math.max(0, maxTop - margin);
-
+    function runAway() {
+      escapes++;
       noButton.style.position = "fixed";
-      noButton.style.left = `${left}px`;
-      noButton.style.top = `${top}px`;
+      const margin = 16;
+      const maxX = Math.max(margin, window.innerWidth - noButton.offsetWidth - margin);
+      const maxY = Math.max(margin, window.innerHeight - noButton.offsetHeight - margin);
+      noButton.style.left = (margin + Math.random() * (maxX - margin)) + "px";
+      noButton.style.top = (margin + Math.random() * (maxY - margin)) + "px";
+      const messages = [
+        "Opa, quase! 😂",
+        "Esse botão é rápido demais 👀",
+        "Acho que ele quer que você diga sim 💜",
+        "Maria, não adianta fugir da pergunta 😭",
+        "O botão NÃO pediu demissão 🏃"
+      ];
+      hint.textContent = messages[Math.min(escapes - 1, messages.length - 1)];
     }
 
-    noButton.addEventListener("pointerenter", dodgeNoButton);
-    noButton.addEventListener("pointerdown", dodgeNoButton);
-    noButton.addEventListener("focus", dodgeNoButton);
-    noButton.addEventListener("click", dodgeNoButton);
+    noButton.addEventListener("pointerenter", runAway);
+    noButton.addEventListener("click", runAway);
+    noButton.addEventListener("touchstart", (event) => {
+      event.preventDefault();
+      runAway();
+    }, { passive: false });
 
     yesButton.addEventListener("click", () => {
-      actions.hidden = true;
-      reply.textContent = "Combinado! Quarta-feira já tem jogo marcado. 🎲";
+      result.style.display = "block";
+      hint.textContent = "Resposta registrada com sucesso. ✔";
+      yesButton.textContent = "COMBINADO! 💜";
+      noButton.style.display = "none";
+      for (let i = 0; i < 28; i++) {
+        setTimeout(() => {
+          const heart = document.createElement("span");
+          heart.className = "heart";
+          heart.textContent = ["💜", "✨", "🎮", "💕"][Math.floor(Math.random() * 4)];
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.fontSize = (16 + Math.random() * 20) + "px";
+          heart.style.animationDuration = (2.5 + Math.random() * 2) + "s";
+          document.getElementById("hearts").appendChild(heart);
+          setTimeout(() => heart.remove(), 5000);
+        }, i * 70);
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (noButton.style.position === "fixed") {
+        const x = Math.min(parseFloat(noButton.style.left) || 16, window.innerWidth - noButton.offsetWidth - 8);
+        const y = Math.min(parseFloat(noButton.style.top) || 16, window.innerHeight - noButton.offsetHeight - 8);
+        noButton.style.left = Math.max(8, x) + "px";
+        noButton.style.top = Math.max(8, y) + "px";
+      }
     });
   </script>
 </body>
