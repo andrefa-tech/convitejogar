@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f4e9">
+  <title>Um convite para Maria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f6f4e9;
+      --ink: #173d35;
+      --muted: #64736a;
+      --red: #df563b;
+      --yellow: #f4cb5c;
+      --line: #dedfd1;
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 32px 20px;
+      background-color: var(--paper);
+      background-image: radial-gradient(#c9d1bd 0.75px, transparent 0.75px);
+      background-size: 19px 19px;
+    }
+
+    .invitation {
+      width: min(100%, 940px);
+      min-height: 530px;
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      overflow: hidden;
+      background: #fffef9;
+      border: 1px solid var(--line);
+      box-shadow: 9px 10px 0 #d9dfcf;
+      animation: arrive 650ms cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .photo {
+      min-height: 530px;
+      position: relative;
+      background: #d7ddc9;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+      object-fit: cover;
+    }
+
+    .photo::after {
+      content: "";
+      position: absolute;
+      inset: 55% 0 0;
+      background: linear-gradient(transparent, rgb(15 35 27 / 55%));
+      pointer-events: none;
+    }
+
+    .photo-note {
+      position: absolute;
+      z-index: 1;
+      left: 25px;
+      bottom: 23px;
+      color: white;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .message {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: clamp(30px, 5vw, 62px);
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 24px;
+      color: var(--red);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 2px;
+      background: var(--red);
+    }
+
+    h1 {
+      max-width: 460px;
+      margin: 0;
+      font-family: "DM Serif Display", Georgia, serif;
+      font-size: clamp(42px, 5.3vw, 64px);
+      font-weight: 400;
+      line-height: 0.99;
+    }
+
+    h1 span { color: var(--red); }
+
+    .details {
+      margin: 25px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .day {
+      display: inline-block;
+      margin-top: 21px;
+      padding: 8px 12px;
+      background: #f9e9a9;
+      color: #4a482f;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 54px;
+      margin-top: 29px;
+    }
+
+    button {
+      min-height: 48px;
+      padding: 0 23px;
+      border: 0;
+      border-radius: 3px;
+      font: 700 14px "DM Sans", sans-serif;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .yes {
+      background: var(--ink);
+      color: white;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .yes:hover { background: #285d4f; transform: translateY(-2px); }
+    .yes:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+
+    .no {
+      position: relative;
+      background: #f0eee5;
+      color: #4e5a52;
+      transition: left 120ms ease, top 120ms ease, background 120ms ease;
+    }
+
+    .no:hover { background: #e7e4d8; }
+    .no:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+
+    .reply {
+      min-height: 24px;
+      margin: 18px 0 0;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    [hidden] { display: none !important; }
+
+    @keyframes arrive {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 650px) {
+      body { padding: 20px 16px; }
+      .invitation { grid-template-columns: 1fr; min-height: auto; }
+      .photo { min-height: 225px; }
+      .message { padding: 34px 27px 38px; }
+      .eyebrow { margin-bottom: 19px; }
+      h1 { font-size: clamp(43px, 12vw, 58px); }
+      .details { margin-top: 19px; }
+      .day { margin-top: 15px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="invitation">
+    <div class="photo">
+      <img src="https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Um jogo de tabuleiro pronto para começar">
+      <span class="photo-note">Uma partida, boas risadas</span>
+    </div>
+    <section class="message" aria-labelledby="title">
+      <p class="eyebrow">Tenho um convite</p>
+      <h1 id="title">Maria, bora jogar <span>comigo?</span></h1>
+      <p class="details">Quero passar um tempo com você<br>e jogar alguma coisa juntos.</p>
+      <span class="day">Quarta-feira</span>
+      <div class="actions" id="actions">
+        <button class="yes" id="yes" type="button">Sim, vamos!</button>
+        <button class="no" id="no" type="button">Não</button>
+      </div>
+      <p class="reply" id="reply" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <script>
+    const yesButton = document.querySelector("#yes");
+    const noButton = document.querySelector("#no");
+    const actions = document.querySelector("#actions");
+    const reply = document.querySelector("#reply");
+
+    function dodgeNoButton() {
+      const margin = 12;
+      const maxLeft = Math.max(margin, window.innerWidth - noButton.offsetWidth - margin);
+      const maxTop = Math.max(margin, window.innerHeight - noButton.offsetHeight - margin);
+      const left = margin + Math.random() * Math.max(0, maxLeft - margin);
+      const top = margin + Math.random() * Math.max(0, maxTop - margin);
+
+      noButton.style.position = "fixed";
+      noButton.style.left = `${left}px`;
+      noButton.style.top = `${top}px`;
+    }
+
+    noButton.addEventListener("pointerenter", dodgeNoButton);
+    noButton.addEventListener("pointerdown", dodgeNoButton);
+    noButton.addEventListener("focus", dodgeNoButton);
+    noButton.addEventListener("click", dodgeNoButton);
+
+    yesButton.addEventListener("click", () => {
+      actions.hidden = true;
+      reply.textContent = "Combinado! Quarta-feira já tem jogo marcado. 🎲";
+    });
+  </script>
+</body>
+</html>
